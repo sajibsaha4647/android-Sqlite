@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.security.PublicKey;
+
 public class SqliteHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Student.db";
@@ -15,8 +17,11 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public static final String ID = "_id";
     public static final String NAME = "name";
     public static final String AGE = "age";
+    public static final String GENDER = "gender";
     public static final int VERSION_NAME = 1;
-    public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( "+ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME+" VRCHAR (255), "+AGE+" INTEGER)";
+    public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( "+ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME+" VRCHAR (255), "+AGE+" INTEGER, "+GENDER+" VRCHAR (15) )";
+    public static final String DROP_TABLE = " DROP TABLE IF EXISTS " + TABLE_NAME;
+
 
     private Context context;
 
@@ -28,8 +33,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+
             try{
-                Toast.makeText(context,"Database create successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Database create successfully", Toast.LENGTH_SHORT).show();
                 sqLiteDatabase.execSQL(CREATE_TABLE);
             }catch (Exception e){
                 Log.d("exception",""+e);
@@ -38,6 +44,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+           try{
+               Toast.makeText(context,"Database updated successfully",Toast.LENGTH_LONG).show();
+               sqLiteDatabase.execSQL(DROP_TABLE);
+               onCreate(sqLiteDatabase);
+           }catch (Exception e){
+               Log.d("e",""+e);
+           }
     }
 }
