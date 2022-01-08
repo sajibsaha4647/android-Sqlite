@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SqliteHelper sqliteHelper;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
-    private EditText Name, Age;
-    private Button signup, sawid;
+    private EditText Name, Age,id;
+    private Button signup, sawid,updated,deleted;
     private String Radiovalue;
 
     private TextView TextOne,Texttwo,Textthree;
@@ -35,9 +35,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Name = findViewById(R.id.editone);
         Age = findViewById(R.id.edittwo);
+        id = findViewById(R.id.editid);
         radioGroup = findViewById(R.id.RadioGroupid1);
-        signup = findViewById(R.id.Signup);
-        sawid = findViewById(R.id.seeid);
+
+        signup = findViewById(R.id.Signup); //insert
+        sawid = findViewById(R.id.seeid); //show
+        updated = findViewById(R.id.Updated); //updated
+        deleted = findViewById(R.id.Delated); //delete
 
         TextOne = findViewById(R.id.renderName);
         Texttwo = findViewById(R.id.renderage);
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         signup.setOnClickListener(this);
         sawid.setOnClickListener(this);
+        updated.setOnClickListener(this);
+        deleted.setOnClickListener(this);
 
     }
 
@@ -57,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String name = Name.getText().toString();
         String age = Age.getText().toString();
+        String ataId = id.getText().toString();
         SQLiteDatabase sqLiteDatabase = sqliteHelper.getWritableDatabase();
-
 
 
         try {
@@ -79,10 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "Row " + rowid + "UnSuccessfull", Toast.LENGTH_LONG).show();
             }
 
-        }
-
-
-        if (view.getId() == R.id.seeid) {
+        }else if (view.getId() == R.id.seeid) {
             Cursor cursor = sqliteHelper.DisplayAllData();
             if (cursor.getCount() != 0) {
                 StringBuffer stringBuffer = new StringBuffer();
@@ -99,6 +102,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             }
 
+        }else if(view.getId() == R.id.Updated){
+
+            Boolean IsUpdated = sqliteHelper.UpdatedData(ataId,name,age,Radiovalue);
+
+            if(IsUpdated == true){
+                Toast.makeText(MainActivity.this,  "Data updated successful", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(MainActivity.this,  "Data not updated", Toast.LENGTH_LONG).show();
+            }
+
+
+        }else if(view.getId() == R.id.Delated){
+            Toast.makeText(MainActivity.this,  "Delete press", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -111,8 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    Log.d("tag","M"+result.name);
 //                }
 //            }
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(result);
