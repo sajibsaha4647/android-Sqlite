@@ -1,5 +1,6 @@
 package com.example.mysqlite.Adapters;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -7,8 +8,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
-import java.security.PublicKey;
 
 public class SqliteHelper extends SQLiteOpenHelper {
 
@@ -19,7 +18,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public static final String AGE = "age";
     public static final String GENDER = "gender";
     public static final int VERSION_NAME = 1;
-    public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( "+ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME+" VRCHAR (255), "+AGE+" INTEGER, "+GENDER+" VRCHAR (15) )";
+    public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( "+ID+" INTEGER  PRIMARY KEY AUTOINCREMENT, "+NAME+" VRCHAR (255), "+AGE+" INTEGER, "+GENDER+" VRCHAR (15) )";
     public static final String DROP_TABLE = " DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
@@ -32,7 +31,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
 
             try{
                 Toast.makeText(context,"Database create successfully", Toast.LENGTH_SHORT).show();
@@ -51,5 +49,15 @@ public class SqliteHelper extends SQLiteOpenHelper {
            }catch (Exception e){
                Log.d("e",""+e);
            }
+    }
+
+    public long insetData(String name , String age, String gender){
+            SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(NAME,name);
+            contentValues.put(AGE,age);
+            contentValues.put(GENDER,gender);
+            long status = sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
+            return status;
     }
 }
