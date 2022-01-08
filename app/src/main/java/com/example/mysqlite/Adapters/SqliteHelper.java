@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -79,5 +80,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
         contentValues.put(GENDER,radiovalue);
         sqLiteDatabase.update(TABLE_NAME,contentValues,ID+" = ?",new String[]{ataId});
         return true;
+    }
+
+    public int Deletedata (String ataId){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        int status  = sqLiteDatabase.delete(TABLE_NAME,ID+" = ?",new String[]{ataId});
+
+        return status;
     }
 }
