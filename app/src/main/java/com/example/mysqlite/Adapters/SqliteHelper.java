@@ -2,6 +2,7 @@ package com.example.mysqlite.Adapters;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -19,6 +20,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public static final String GENDER = "gender";
     public static final int VERSION_NAME = 1;
     public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( "+ID+" INTEGER  PRIMARY KEY AUTOINCREMENT, "+NAME+" VRCHAR (255), "+AGE+" INTEGER, "+GENDER+" VRCHAR (15) )";
+    public static final String SELECT_ALL = "SELECT * FROM " +TABLE_NAME ;
     public static final String DROP_TABLE = " DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
@@ -51,7 +53,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
            }
     }
 
-    public long insetData(String name , String age, String gender){
+    public long insetData(String name , String age, String gender){ //insert data
             SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(NAME,name);
@@ -59,5 +61,11 @@ public class SqliteHelper extends SQLiteOpenHelper {
             contentValues.put(GENDER,gender);
             long status = sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
             return status;
+    }
+
+    public Cursor DisplayAllData (){ //Display data
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_ALL,null);
+        return  cursor;
     }
 }

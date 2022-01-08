@@ -68,6 +68,70 @@
         android:layout_marginTop="20dp"
         />
 
+    <Button
+        android:id="@+id/seeid"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Seen"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="4"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@color/black"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:text="name"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="age"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="gender"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LineatDataid"
+        android:layout_width="match_parent"
+        android:weightSum="4"
+        android:orientation="horizontal"
+        android:background="#ddd"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/renderName"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:text="saib"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/renderage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="25"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/renderGender"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="male"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 
 
 </LinearLayout>
